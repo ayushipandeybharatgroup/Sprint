@@ -63,6 +63,9 @@ Before managing any service:
 sudo systemctl status salary-api
 
 
+<img width="1355" height="404" alt="Screenshot 2025-10-11 220940" src="https://github.com/user-attachments/assets/7f20c821-9e9b-4951-8da5-206084fee0c8" />
+
+
 ---
 
 ### Stop Service
@@ -71,6 +74,8 @@ sudo systemctl status salary-api
 
 
 
+<img width="1349" height="347" alt="Screenshot 2025-10-11 221213" src="https://github.com/user-attachments/assets/ae58a3fe-9dd9-4c8e-8b86-a89f0dd59bd2" />
+
 ---
 
 ### Start Service
@@ -78,12 +83,19 @@ sudo systemctl status salary-api
 sudo systemctl start salary-api
 sudo systemctl status salary-api
 
+<img width="1350" height="399" alt="Screenshot 2025-10-11 221318" src="https://github.com/user-attachments/assets/c381b90f-4e62-4292-8201-76920858ed4b" />
+
+
 
 ---
 
 ### Enable Service at Boot
 
+sudo systemctl disable salary-api
 sudo systemctl enable salary-api
+
+<img width="1086" height="103" alt="image" src="https://github.com/user-attachments/assets/30ae0960-963c-4cd2-b671-f172331ac7bd" />
+
 
 
 ---
@@ -92,22 +104,13 @@ sudo systemctl enable salary-api
 
 sudo journalctl -u salary-api -f
 
+<img width="1349" height="408" alt="Screenshot 2025-10-11 221827" src="https://github.com/user-attachments/assets/2820a4c5-f70b-4e56-907a-a0d7fe0a0baf" />
 
+<img width="1348" height="307" alt="Screenshot 2025-10-11 221848" src="https://github.com/user-attachments/assets/5a275eeb-7aad-4d7b-8568-c89d2c3d3c9e" />
 
-> Press `Ctrl + C` to stop following logs and return to the terminal.
-
----
-
-## Screenshots
-Add all images under a `/assets` or `/images` folder in your repo, then link them like:
-
-```
-![Salary API Running](./assets/salary-status.png)
-```
 
 
 ---
-
 ##  Troubleshooting
 
 | **Issue** | **Cause** | **Solution** |
@@ -129,7 +132,7 @@ Add all images under a `/assets` or `/images` folder in your repo, then link the
 
 ---
 
-##💻 Author
+## Author
 | **Name** | **Email** |
 |-----------|-----------|
 | Ayushi | ayushi.snaatak@mygurukulam.co |
