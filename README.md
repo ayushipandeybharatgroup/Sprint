@@ -1,146 +1,141 @@
-Introduction
 
-In any microservice-based architecture (like OT-Microservices), each backend or frontend application runs as a service on the Linux server.
-Managing these services effectively is crucial for ensuring uptime, health, and availability of the entire application stack.
+#  SOP for Services
 
-This SOP provides detailed steps and best practices to start, stop, enable, disable, and monitor services using systemctl.
+### This document provides a Standard Operating Procedure (SOP) for managing and monitoring Linux system services using `systemctl` commands.  
+The example used here is the **Salary API** service from the OT-Microservices stack.
 
-Purpose
+---
 
+| **Author** | **Created on** | **Version** | **Last updated by** | **Last Edited On** | **Level** | **Reviewer** |
+|-------------|----------------|--------------|---------------------|--------------------|------------|---------------|
+| Ayushi | 2025-10-11 | 1.0 | Ayushi | 2025-10-11 | L0 | Komal Jaiswal |
+| Ayushi | 2025-10-11 | 1.0 | Ayushi | 2025-10-11 | L1 | Imran |
+| Ayushi | 2025-10-11 | 1.0 | Ayushi | 2025-10-11 | L2 | Shashi |
+
+---
+
+##  Table of Contents
+- [Introduction](#introduction)
+- [Purpose](#purpose)
+- [Pre-requisites](#pre-requisites)
+- [Service Management Steps](#service-management-steps)
+  - [Check Service Status](#1-check-service-status)
+  - [Stop Service](#2-stop-service)
+  - [Start Service](#3-start-service)
+  - [Enable Service](#4-enable-service)
+  - [View Logs](#5-view-logs)
+- [Screenshots](#screenshots)
+- [Troubleshooting](#troubleshooting)
+- [References](#references)
+- [Author](#author)
+
+---
+
+##  Introduction
+In the **OT-Microservices** architecture, backend components such as Salary API, Employee API, and Attendance API are deployed as Linux system services.  
+Managing these services through `systemctl` ensures reliability, automatic startup on reboot, and easy monitoring.
+
+---
+
+##  Purpose
 The purpose of this SOP is to:
+- Define a standard procedure for service operations.
+- Simplify management for microservices like `salary-api`.
+- Help engineers troubleshoot service-level issues efficiently.
 
-Define a standard procedure for managing system services.
+---
 
-Ensure consistent operations across all environments (Dev, QA, Production).
+## Pre-requisites
+Before managing any service:
+1. You must have **sudo privileges**.
+2. The service file should exist under `/etc/systemd/system/`.
+3. Verify service name using:
+   
+   systemctl list-units --type=service | grep salary
+   
 
-Help engineers troubleshoot and recover services quickly.
+---
 
-Maintain system stability by properly enabling/disabling services during deployment.
+##  Service Management Steps
 
-Pre-requisites
+### Check Service Status
 
-Before performing service operations, ensure:
-
-You have sudo/root privileges.
-
-The service file exists in /etc/systemd/system/ (e.g., frontend.service, employee.service).
-
-The service is correctly configured with the right path to the executable or script.
-
-You understand the service’s dependencies (e.g., database, API).
-
-Service Management Commands
-🔹 Start a Service
-
-Use this command to start a service manually.
-
-sudo systemctl start <service-name>
+sudo systemctl status salary-api
 
 
-Example:
+---
 
-sudo systemctl start frontend
-
-🔹 Stop a Service
-
-Stops the running service.
-
-sudo systemctl stop <service-name>
+### Stop Service
+sudo systemctl stop salary-api
+sudo systemctl status salary-api
 
 
-Example:
 
-sudo systemctl stop employee
+---
 
-🔹 Restart a Service
+### Start Service
 
-Use this after updating configuration or code changes.
-
-sudo systemctl restart <service-name>
+sudo systemctl start salary-api
+sudo systemctl status salary-api
 
 
-Example:
+---
 
-sudo systemctl restart salary
+### Enable Service at Boot
 
-🔹 Enable a Service
-
-Enable the service to auto-start at boot time.
-
-sudo systemctl enable <service-name>
+sudo systemctl enable salary-api
 
 
-Example:
+---
 
-sudo systemctl enable notification
+### View Logs
 
-🔹 Disable a Service
-
-Disable auto-start on boot.
-
-sudo systemctl disable <service-name>
+sudo journalctl -u salary-api -f
 
 
-Example:
 
-sudo systemctl disable frontend
+> Press `Ctrl + C` to stop following logs and return to the terminal.
 
-🔹 Check Service Status
+---
 
-Displays whether the service is active, inactive, or failed.
+## Screenshots
+Add all images under a `/assets` or `/images` folder in your repo, then link them like:
 
-sudo systemctl status <service-name>
-
-
-Example:
-
-sudo systemctl status attendance
+```
+![Salary API Running](./assets/salary-status.png)
+```
 
 
-You’ll see output like:
+---
 
-● attendance.service - Attendance API Service
-   Loaded: loaded (/etc/systemd/system/attendance.service; enabled)
-   Active: active (running) since Fri 2025-10-10 10:45:11 UTC; 2h 5min ago
-   Main PID: 3125 (node)
+##  Troubleshooting
 
-🔹 View Service Logs
+| **Issue** | **Cause** | **Solution** |
+|------------|------------|---------------|
+| Service not found | `.service` file missing | Check `/etc/systemd/system/` |
+| Service failed to start | Port already in use | Check with `sudo lsof -i:8080` |
+| Logs not showing | Wrong service name | Verify using `systemctl list-units` |
+| Config changes not applied | Daemon not reloaded | Run `sudo systemctl daemon-reload` |
 
-Use journalctl to check logs and debug issues.
+---
 
-sudo journalctl -u <service-name> -f
+##  References
 
+| **Topic** | **Link** | **Description** |
+|------------|-----------|----------------|
+| systemctl Docs | [https://www.freedesktop.org/software/systemd/man/systemctl.html](https://www.freedesktop.org/software/systemd/man/systemctl.html) | Official documentation |
+| journalctl Guide | [https://man7.org/linux/man-pages/man1/journalctl.1.html](https://man7.org/linux/man-pages/man1/journalctl.1.html) | Log management guide |
+| DigitalOcean Tutorial | [https://www.digitalocean.com/community/tutorials/how-to-use-systemctl](https://www.digitalocean.com/community/tutorials/how-to-use-systemctl) | Step-by-step example |
 
-Example:
+---
 
-sudo journalctl -u frontend -f
+##💻 Author
+| **Name** | **Email** |
+|-----------|-----------|
+| Ayushi | ayushi.snaatak@mygurukulam.co |
 
+---
 
-(The -f flag follows the log in real-time.)
-
-Common Examples
-Operation	Command Example	Description
-Start service	sudo systemctl start employee	Starts employee service
-Stop service	sudo systemctl stop salary	Stops salary service
-Restart service	sudo systemctl restart notification	Restarts notification service
-Enable service at boot	sudo systemctl enable frontend	Auto-start frontend on system boot
-Disable auto-start	sudo systemctl disable frontend	Prevents service from starting at boot
-Check current status	sudo systemctl status frontend	Checks running status and uptime info
-View logs	sudo journalctl -u frontend -f	Monitors real-time logs of the service
-Troubleshooting
-Issue	Possible Cause	Solution
-Service not starting	Incorrect service file path or permissions	Check /etc/systemd/system/<service>.service and verify ExecStart path
-Service fails immediately	Port already in use	Check with sudo lsof -i:<port> and free the port
-Logs not showing	Wrong service name	Verify service name using systemctl list-units --type=service
-Changes not taking effect	Daemon not reloaded	Run sudo systemctl daemon-reload after editing the service file
-Contact Information
-Name	Email Address
-Ayushi	ayushi.snaatak@mygurukulam.co
-References
-Topic	Link	Description
-systemctl documentation	https://www.freedesktop.org/software/systemd/man/systemctl.html
-	Official systemctl command reference
-journalctl usage	https://man7.org/linux/man-pages/man1/journalctl.1.html
-	Log viewing and debugging
-Linux Services Guide	https://www.digitalocean.com/community/tutorials/how-to-use-systemctl
-	Tutorial for beginners
+<p align="center">
+  <em>End of Document</em>
+</p>
