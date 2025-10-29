@@ -1,5 +1,6 @@
 <p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/2/28/Gunicorn_logo_2010.svg" alt="Gunicorn Logo" width="250"/>
+  <img width="243" height="207" alt="image" src="https://github.com/user-attachments/assets/20e02584-ea93-4ecb-82da-2a8b52f15641" />
+
 </p>
 
 #  Gunicorn — Introduction & Key Features
@@ -8,11 +9,10 @@
 
 ---
 
-| **Author** | **Created on** | **Version** | **Last updated by** | **Last Edited On** | **Level** | **Reviewer** |
-|-------------|----------------|--------------|---------------------|--------------------|------------|---------------|
-| Ayushi | 2025-10-12 | 1.0 | Ayushi | 2025-10-12 | L0 | Komal Jaiswal |
-| Ayushi | 2025-10-12 | 1.0 | Ayushi | 2025-10-12 | L1 | Imran |
-| Ayushi | 2025-10-12 | 1.0 | Ayushi | 2025-10-12 | L2 | Shashi |
+| **Author** | **Created on** | **Version**| **Last Edited On** | **Level** | **Reviewer** |
+
+| Ayushi | 2025-10-29 | 1.0 | Ayushi  | Internal Review | Team |
+
 
 ---
 
@@ -51,15 +51,6 @@ It’s a **pre-fork worker model** server — meaning it spawns multiple worker 
 
 **WSGI** stands for *Web Server Gateway Interface*, a standard interface between web servers and Python applications.
 
-Command to use Gunicorn 
-<img width="1186" height="410" alt="Screenshot 2025-10-24 194924" src="https://github.com/user-attachments/assets/d56ed3bb-33bf-4853-9b5c-def5f16113bc" />
-
-
-Here is a sample site using Gunicorn for site broadcast
-<img width="1365" height="669" alt="Screenshot 2025-10-24 194245" src="https://github.com/user-attachments/assets/d10e7b51-f893-49ec-964e-02ce6ac33e26" />
-
-Running service in systemd so that it never faces downtime 
-<img width="1364" height="670" alt="Screenshot 2025-10-24 201459" src="https://github.com/user-attachments/assets/b1779b51-38eb-4c9f-9207-821d7691317a" />
 
 
 
@@ -99,10 +90,24 @@ Gunicorn provides:
 3️ Gunicorn translates them into WSGI calls for your Python app.  
 4️ The app processes the request and sends the response back via Gunicorn and Nginx.  
 
+<img width="829" height="242" alt="image" src="https://github.com/user-attachments/assets/1f26d335-b04b-4151-b383-2c019eb4d24a" />
+
+
 ---
 
 ##  Basic Commands
 
 ### Start Gunicorn
-```bash
+
 gunicorn app:app --bind 0.0.0.0:8000
+
+
+Command to use Gunicorn 
+<img width="1186" height="410" alt="Screenshot 2025-10-24 194924" src="https://github.com/user-attachments/assets/d56ed3bb-33bf-4853-9b5c-def5f16113bc" />
+
+
+Here is a sample site using Gunicorn for site broadcast
+<img width="1365" height="669" alt="Screenshot 2025-10-24 194245" src="https://github.com/user-attachments/assets/d10e7b51-f893-49ec-964e-02ce6ac33e26" />
+
+Running service in systemd so that it never faces downtime 
+<img width="1364" height="670" alt="Screenshot 2025-10-24 201459" src="https://github.com/user-attachments/assets/b1779b51-38eb-4c9f-9207-821d7691317a" />
